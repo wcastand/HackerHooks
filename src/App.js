@@ -1,28 +1,23 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense, lazy } from 'react'
+import { unstable_createResource } from 'react-cache'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+import Header from './c/header'
+
+const NewsList = lazy(() => import('./c/newslist'))
+
+const fetchIds = id =>
+  fetch(`https://hacker-news.firebaseio.com/v0/newstories.json`).then(res => res.json())
+
+const newsRessource = unstable_createResource(fetchIds)
+
+const App = props => {
+  const ids = newsRessource.read()
+  return (
+    <Suspense fallback={'loading App...'}>
+      <Header />
+      <NewsList ids={ids} />
+    </Suspense>
+  )
 }
 
-export default App;
+export default App

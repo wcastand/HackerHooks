@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0",
-    "react-scripts": "2.0.5"
+    "isomorphic-fetch": "^2.2.1",
+    "react": "react@16.7.0-alpha.0",
+    "react-cache": "^2.0.0-alpha.0",
+    "react-dom": "react@16.7.0-alpha.0",
+    "react-scripts": "2.0.5",
+    "styled-components": "^4.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
