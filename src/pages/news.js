@@ -1,8 +1,9 @@
 import React, { Suspense, lazy, useState } from 'react'
+import { unstable_createResource } from 'react-cache'
 import styled from 'styled-components'
 
-import FakeNews from './fakenews'
-const News = lazy(() => import('./news'))
+import FakeNews from '../c/fakenews'
+const News = lazy(() => import('../c/news'))
 
 const List = styled('ul')`
   display: flex;
@@ -12,11 +13,16 @@ const List = styled('ul')`
   padding: 0;
 `
 
-const NewsList = ({ ids }) => {
+const fetchIds = id =>
+  fetch(`https://hacker-news.firebaseio.com/v0/newstories.json`).then(res => res.json())
+
+const newsRessource = unstable_createResource(fetchIds)
+
+const NewsList = () => {
+  const ids = newsRessource.read()
   const [page, setPage] = useState(0)
   return (
     <div>
-      <h1>News</h1>
       <List>
         <Suspense
           fallback={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (

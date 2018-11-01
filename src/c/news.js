@@ -8,7 +8,6 @@ const fetchNews = id =>
 const newsRessource = unstable_createResource(fetchNews)
 
 const News = styled('li')`
-  height: 15px;
   margin: 2px 0;
   padding: 5px;
 `

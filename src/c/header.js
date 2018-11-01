@@ -1,16 +1,21 @@
 import React from 'react'
 import css from 'styled-components'
 
-import Nav from './nav'
 import Box from './box'
+import Link, { CLink } from './link'
 
 const Header = css('div')`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   height: 42px;
   padding: 2px;
   background-color: rgb(255, 102, 0);
+  z-index: 99;
 `
 
 const Title = css('h1')`
@@ -34,31 +39,44 @@ const Logo = css('img')`
   height: 20px;
   border: 1px solid white;
 `
-
-const Item = css('li')`
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
+const Nav = css('ul')`
+  display: flex;
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  font-size: 12px;
 `
 
 const Separator = css('span')`
-  padding: 0 3.2pt;
-  ::after {
-    content: '|';
-  }
+padding: 0 3.2pt;
+::after {
+  content: ' | ';
+}
 `
 
 export default () => (
   <Header>
-    <LogoContainer>
-      <Logo src="https://news.ycombinator.com/y18.gif" />
-    </LogoContainer>
+    <CLink to="/">
+      <LogoContainer>
+        <Logo src="https://news.ycombinator.com/y18.gif" />
+      </LogoContainer>
+    </CLink>
     <Box fd="column" jc="space-between" margin="2px 5px">
-      <Title>Hacker News</Title>
+      <CLink to="news">
+        <Title>Hacker News</Title>
+      </CLink>
       <Nav>
-        <Item>new</Item> <Separator /> <Item>comments</Item> <Separator /> <Item>show</Item>{' '}
-        <Separator /> <Item>ask</Item> <Separator />
-        <Item>jobs</Item> <Separator /> <Item>submit</Item>
+        <Link name="new" to="newest" />
+        <Separator />
+        <Link name="comments" to="newcomments" />
+        <Separator />
+        <Link name="show" to="show" />
+        <Separator />
+        <Link name="ask" to="ask" />
+        <Separator />
+        <Link name="jobs" to="jobs" />
+        <Separator />
+        <Link name="submit" to="submit" />
       </Nav>
     </Box>
   </Header>
